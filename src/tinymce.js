@@ -2,7 +2,13 @@
  * Binds a TinyMCE widget to <textarea> elements.
  */
 angular.module('ui.tinymce', [])
-  .value('uiTinymceConfig', {})
+  .value('uiTinymceConfig', {
+		plugins: "paste",
+		paste_auto_cleanup_on_paste: true,
+		paste_remove_styles: true,
+		paste_remove_styles_if_webkit: true,
+		paste_strip_class_attributes: true
+	})
   .directive('uiTinymce', ['uiTinymceConfig', function (uiTinymceConfig) {
     uiTinymceConfig = uiTinymceConfig || {};
     var generatedIds = 0;
