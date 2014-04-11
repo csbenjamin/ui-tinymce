@@ -8,6 +8,7 @@ angular.module('ui.tinymce', [])
     var generatedIds = 0;
     return {
       require: 'ngModel',
+      priority: 1,
       link: function (scope, elm, attrs, ngModel) {
         var expression, options, tinyInstance,
           updateView = function () {
@@ -47,7 +48,8 @@ angular.module('ui.tinymce', [])
             ed.on('SetContent', function (e) {
               if(!e.initial){
                 ed.save();
-                updateView();
+                if(!e.fromAngular)
+                  updateView();
               }
             });
             if (expression.setup) {
@@ -70,7 +72,7 @@ angular.module('ui.tinymce', [])
             tinyInstance = tinymce.get(attrs.id);
           }
           if (tinyInstance) {
-            tinyInstance.setContent(ngModel.$viewValue || '');
+            tinyInstance.setContent(ngModel.$viewValue || '', {fromAngular:true});
           }
         };
       }
